@@ -30,9 +30,11 @@ class ScormAPI {
         return false;
       }
 
+      // go up the tree
       window = window['parent'];
     }
 
+    // api found? - reference found API object in current context
     if (window['API'] != null) {
       context['API'] = window['API'];
       return true;

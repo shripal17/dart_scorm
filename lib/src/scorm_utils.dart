@@ -1,4 +1,4 @@
-import 'base_scorm.dart';
+import 'scorm_api.dart';
 
 /// Contains utility methods
 class ScormUtils {

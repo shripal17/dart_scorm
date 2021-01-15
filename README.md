@@ -2,7 +2,9 @@
 
 [![Pub](https://img.shields.io/pub/v/scorm.svg)](https://pub.dev/packages/scorm)
 
-Easily integrate SCORM APIs in your flutter/dart web app
+A simple package which lets you conveniently consume SCORM 1.2 APIs in your dart/flutter web app. Also handles finding of the SCORM 'API' object in the view hierarchy.
+
+This opens a new scope for Dart/Flutter Web: Beautiful, interactive course content creation
 
 ## Installation
 Refer [here](https://pub.dev/packages/scorm/install)
