@@ -21,12 +21,12 @@ A complete example to run a Flutter web app as a SCORM 1.2 package can be found 
 
 To test it in LMS platforms, just build release version of the [example app](https://github.com/shripal17/dart_scorm/example) and create a zip file of the example/build/web folder.
 
-See [example/web/imsmanifest.xml](https://github.com/shripal17/dart_scorm/example/web/imsmanifest.xml) for the resource declaration.
+See [example/web/imsmanifest.xml](https://github.com/shripal17/dart_scorm/blob/main/example/web/imsmanifest.xml) for the resource declaration.
 
 ### TLDR
-- The flutter app can be run in an `iframe` with the [example/web/flutter-app.html](https://github.com/shripal17/dart_scorm/example/web/flutter-app.html) as `src`
-- [example/web/flutter-app.js](https://github.com/shripal17/dart_scorm/example/web/flutter-app.js) creates a custom HTMLElement **for testing**, which is used in [example/web/index.html](https://github.com/shripal17/dart_scorm/example/web/index.html)
-- [example/web/index.html](https://github.com/shripal17/dart_scorm/example/web/index.html) contains [simplify-scorm](https://github.com/gabrieldoty/simplify-scorm) for emulation of the SCORM API
+- The flutter app can be run in an `iframe` with the [example/web/flutter-app.html](https://github.com/shripal17/dart_scorm/blob/main/example/web/flutter-app.html) as `src`
+- [example/web/flutter-app.js](https://github.com/shripal17/dart_scorm/blob/main/example/web/flutter-app.js) creates a custom HTMLElement **for testing**, which is used in [example/web/index.html](https://github.com/shripal17/dart_scorm/blob/main/example/web/index.html)
+- [example/web/index.html](https://github.com/shripal17/dart_scorm/blob/main/example/web/index.html) contains [simplify-scorm](https://github.com/gabrieldoty/simplify-scorm) for emulation of the SCORM API
 
 ### References
 [Official SCORM Docs](https://scorm.com/scorm-explained/technical-scorm/scorm-12-overview-for-developers)

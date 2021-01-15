@@ -1,8 +1,8 @@
 name: scorm
 description: Easily integrate SCORM APIs in your flutter/dart web app
 version: 0.0.1
-author:
-homepage:
+author: shripal17
+homepage: https://github.com/shripal17/dart_scorm/
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
