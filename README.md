@@ -1,6 +1,7 @@
 # scorm
 
-[![Pub](https://img.shields.io/pub/v/scorm.svg)](https://pub.dev/packages/scorm)
+[![Pub](https://img.shields.io/pub/v/scorm.svg)](https://pub.dev/packages/scorm) [![Flutter Demo](https://img.shields.io/badge/flutter-demo-brightgreen)](https://scorm-dart.web.app
+)
 
 A simple package which lets you conveniently consume SCORM 1.2/20004 APIs in your dart/flutter web app. Also handles finding of the SCORM 'API' object in the current or `opener`'s view hierarchy.
 
