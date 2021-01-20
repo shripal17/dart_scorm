@@ -4,7 +4,7 @@
     xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.imsglobal.org/xsd/imsmd_rootv1p2p1 imsmd_rootv1p2p1.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">
   <metadata>
     <schema>ADL SCORM</schema>
-    <schemaversion>1.2</schemaversion>
+    <schemaversion>2004 3rd Edition</schemaversion>
     <lom:lom>
       <lom:general>
         <lom:title>
@@ -28,7 +28,8 @@
   </organizations>
   <resources>
     <resource href="flutter-app.html" identifier="resource" type="webcontent" adlcp:scormtype="sco">
-      <file href="flutter-app.html" />
+      <file href="flutter_service_worker.js"/>
+      <file href="main.dart.js"/>
     </resource>
   </resources>
 </manifest>

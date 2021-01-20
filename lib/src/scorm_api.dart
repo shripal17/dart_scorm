@@ -1,9 +1,8 @@
-@JS()
-library scorm;
-
+import 'dart:html';
 import 'dart:js';
 
-import 'package:js/js.dart';
+import 'scorm_version.dart';
+import 'scorm_version_extension.dart';
 
 /// Main class for all the interaction with SCORM APIs
 ///
@@ -22,40 +21,49 @@ class ScormAPI {
 
   static bool _apiFound = false;
 
-  /// Traverses through hierarchy to find "API" and if found, sets the found API to current context so that it can be directly accessed via `API.LMSxyz`
-  static bool _find(JsObject window) {
-    while (window['API'] == null && window['parent'] != null && window['parent'] != window) {
+  static ScormVersion _version = null;
+
+  /// The found/specified SCORM version
+  static ScormVersion get version => _version;
+
+  /// Traverses through hierarchy to find "API" or " and if found, sets the found API to current context so that it can be directly accessed
+  static bool _search(JsObject window) {
+    dynamic _window = _convert(window);
+    while (_window[_version.objectName] == null && _window['parent'] != null && _window['parent'] != window) {
       _tries++;
       if (_tries > _maxTries) {
         return false;
       }
 
       // go up the tree
-      window = window['parent'];
+      _window = _convert(_window['parent']);
     }
 
     // api found? - reference found API object in current context
-    if (window['API'] != null) {
-      context['API'] = window['API'];
+    if (_window[_version.objectName] != null) {
+      context[_version.objectName] = _window[_version.objectName];
       return true;
     }
 
     return false;
   }
 
-  /// Tries to find SCORM 1.2 API in the hierarchy up-to [maxTries] level. If it's not found in the current hierarchy, it tries to find it in the `opener`'s hierarchy
-  ///
-  /// Returns whether the SCORM API has been found. The API status can also be accessed at any point of time with [apiFound]
-  ///
-  /// Disclaimer: Finding the API from current window's opener hasn't been tested and might not work properly. Please create an issue if it doesn't work
-  static bool findApi({int maxTries = 7}) {
+  /// Checks if given object is [Window], if yes, returns it's JsObject for searching the API
+  static JsObject _convert(dynamic object) {
+    if (object is Window) {
+      return JsObject.fromBrowserObject(object);
+    }
+    return object;
+  }
+
+  static bool _findVersion({int maxTries = 7}) {
     _maxTries = maxTries;
-    final foundNormal = _find(context);
+    final foundNormal = _search(context);
     var foundInOpener = false;
 
     if (!foundNormal && context['opener'] != null) {
       _tries = 0;
-      foundInOpener = _find(context['opener']);
+      foundInOpener = _search(context['opener']);
     }
 
     _apiFound = foundNormal || foundInOpener;
@@ -63,51 +71,50 @@ class ScormAPI {
     return _apiFound;
   }
 
-  /// Executes `LMSInitialize`
-  static bool initialize({String message = ""}) => _apiFound ? _initialize(message) : false;
+  /// Tries to find SCORM API in the hierarchy up-to [maxTries] level. If it's not found in the current hierarchy, it tries to find it in the `opener`'s hierarchy
+  ///
+  /// If a [version] is specified, then will search only for that specific version, else will try to find both versions (preference is given to v2004)
+  ///
+  /// Returns whether the SCORM API has been found. The API status can also be accessed at any point of time with [apiFound]
+  static bool findApi({ScormVersion version, int maxTries = 7}) {
+    if (version == null) {
+      _version = ScormVersion.v2004;
+      if (_findVersion(maxTries: maxTries)) {
+        return true;
+      } else {
+        _version = ScormVersion.v1_2;
+        return _findVersion(maxTries: maxTries);
+      }
+    } else {
+      _version = version;
+      return _findVersion(maxTries: _maxTries);
+    }
+  }
 
-  /// Executes `LMSFinish`
-  static bool finish({String message = ""}) => _apiFound ? _finish(message) : false;
+  /// Executes `Initialize`
+  static bool initialize({String message = ""}) => _apiFound ? _version.initialize(message) : false;
 
-  /// Executes `LMSGetValue`
-  static String getValue(String key) => _apiFound ? _getValue(key) : null;
+  /// Executes `Finish/Terminate`
+  static bool finish({String message = ""}) => _apiFound ? _version.finish(message) : false;
 
-  /// Executes `LMSSetValue`
-  static String setValue(String key, String value) => _apiFound ? _setValue(key, value) : null;
+  /// Executes `Finish/Terminate`
+  static bool terminate({String message = ""}) => _apiFound ? _version.terminate(message) : false;
 
-  /// Executes `LMSCommit`
-  static bool commit({String message = ""}) => _apiFound ? _commit(message) : false;
+  /// Executes `GetValue`
+  static String getValue(String key) => _apiFound ? _version.getValue(key) : null;
 
-  /// Executes `LMSGetLastError`
-  static String getLastError() => _apiFound ? _getLastError() : null;
+  /// Executes `SetValue`
+  static String setValue(String key, String value) => _apiFound ? _version.setValue(key, value) : null;
 
-  /// Executes `LMSGetErrorString`
-  static String getErrorString(String errorCode) => _apiFound ? _getErrorString(errorCode) : null;
+  /// Executes `Commit`
+  static bool commit({String message = ""}) => _apiFound ? _version.commit(message) : false;
 
-  /// Executes `LMSGetDiagnostic`
-  static String getDiagnosticMessage(String errorCode) => _apiFound ? _getDiagnosticMessage(errorCode) : null;
+  /// Executes `GetLastError`
+  static String getLastError() => _apiFound ? _version.getLastError() : null;
+
+  /// Executes `GetErrorString`
+  static String getErrorString(String errorCode) => _apiFound ? _version.getErrorString(errorCode) : null;
+
+  /// Executes `GetDiagnostic`
+  static String getDiagnosticMessage(String errorCode) => _apiFound ? _version.getDiagnosticMessage(errorCode) : null;
 }
-
-@JS("API.LMSInitialize")
-external bool _initialize(String message);
-
-@JS("API.LMSFinish")
-external bool _finish(String message);
-
-@JS("API.LMSGetValue")
-external String _getValue(String key);
-
-@JS("API.LMSSetValue")
-external String _setValue(String key, String value);
-
-@JS("API.LMSCommit")
-external bool _commit(String message);
-
-@JS("API.LMSGetLastError")
-external String _getLastError();
-
-@JS("API.LMSGetErrorString")
-external String _getErrorString(String errorCode);
-
-@JS("API.LMSGetDiagnostic")
-external String _getDiagnosticMessage(String errorCode);

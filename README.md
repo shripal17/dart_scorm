@@ -2,7 +2,7 @@
 
 [![Pub](https://img.shields.io/pub/v/scorm.svg)](https://pub.dev/packages/scorm)
 
-A simple package which lets you conveniently consume SCORM 1.2 APIs in your dart/flutter web app. Also handles finding of the SCORM 'API' object in the view hierarchy.
+A simple package which lets you conveniently consume SCORM 1.2/20004 APIs in your dart/flutter web app. Also handles finding of the SCORM 'API' object in the current or `opener`'s view hierarchy.
 
 This opens a new scope for Dart/Flutter Web: Beautiful, interactive course content creation
 
@@ -19,11 +19,13 @@ Refer [here](https://pub.dev/packages/scorm/install)
 
 ## Example
 
-A complete example to run a Flutter web app as a SCORM 1.2 package can be found in the [example folder](https://github.com/shripal17/dart_scorm/example)
+The example app is deployed at https://scorm-dart.web.app
+
+A complete example to run a Flutter web app as a SCORM package can be found in the [example folder](https://github.com/shripal17/dart_scorm/example)
 
 To test it in LMS platforms, just build release version of the [example app](https://github.com/shripal17/dart_scorm/example) and create a zip file of the example/build/web folder.
 
-See [example/web/imsmanifest.xml](https://github.com/shripal17/dart_scorm/blob/main/example/web/imsmanifest.xml) for the resource declaration.
+See [example/web/imsmanifest.xml](https://github.com/shripal17/dart_scorm/blob/main/example/web/imsmanifest.xml) for the resources declaration.
 
 ### TLDR
 - The flutter app can be run in an `iframe` with the [example/web/flutter-app.html](https://github.com/shripal17/dart_scorm/blob/main/example/web/flutter-app.html) as `src`
