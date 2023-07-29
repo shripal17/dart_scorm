@@ -7,13 +7,10 @@ extension ScormVersionExtension on ScormVersion {
     switch (this) {
       case ScormVersion.v1_2:
         return "API";
-        break;
 
       case ScormVersion.v2004:
         return "API_1484_11";
-        break;
     }
-    return "API";
   }
 
   bool Function(String) get initialize => this == ScormVersion.v1_2 ? API_v1_2.initialize : API_v2004.initialize;

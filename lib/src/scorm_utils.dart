@@ -10,8 +10,8 @@ class ScormUtils {
   /// Example use case: You need to set multiple values but all the keys start with a common `CMIElement`/key e.g. `cmi.core` or `cmi.interactions` or just `cmi`
   ///
   /// Returns a list of all the returns of [ScormAPI.setValue]
-  static List<String> setValues(Map<String, String> values, {String keyPrefix = ""}) {
-    final statuses = <String>[];
+  static List<String?> setValues(Map<String, String> values, {String keyPrefix = ""}) {
+    final statuses = <String?>[];
     values.forEach((key, value) {
       statuses.add(ScormAPI.setValue(keyPrefix + key, value));
     });

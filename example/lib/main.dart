@@ -24,14 +24,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  ScormVersion _version;
+  ScormVersion? _version;
   bool _foundApi = false;
-  String _value;
+  String? _value;
   String _enteredValue = "";
   String _key = "cmi.";
-  String _lastError;
-  String _lastErrorString;
-  String _diagnosticMessage;
+  String? _lastError;
+  String? _lastErrorString;
+  String? _diagnosticMessage;
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
                   onChanged: (newVersion) => setState(() => _version = newVersion),
                   hint: Text("Auto"),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     setState(() {
                       _foundApi = ScormAPI.findApi(version: _version);
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                   child: Text("Find API"),
                 ),
                 SizedBox(height: 10),
-                RaisedButton(onPressed: _foundApi ? () => ScormAPI.initialize() : null, child: Text('Init')),
+                ElevatedButton(onPressed: _foundApi ? () => ScormAPI.initialize() : null, child: Text('Init')),
                 SizedBox(height: 10),
                 TextField(
                   controller: TextEditingController(text: _key),
@@ -75,11 +75,11 @@ class _HomePageState extends State<HomePage> {
                   decoration: InputDecoration(labelText: "Value"),
                 ),
                 SizedBox(height: 10),
-                RaisedButton(onPressed: _foundApi ? () => ScormAPI.setValue(_key, _enteredValue) : null, child: Text('Set Value')),
+                ElevatedButton(onPressed: _foundApi ? () => ScormAPI.setValue(_key, _enteredValue) : null, child: Text('Set Value')),
                 SizedBox(height: 10),
                 Text(_value ?? "null"),
                 SizedBox(height: 5),
-                RaisedButton(onPressed: _foundApi ? () => setState(() => _value = ScormAPI.getValue(_key)) : null, child: Text('Get Value')),
+                ElevatedButton(onPressed: _foundApi ? () => setState(() => _value = ScormAPI.getValue(_key)) : null, child: Text('Get Value')),
                 SizedBox(height: 10),
                 Text("Error Code: ${_lastError ?? "null"}"),
                 SizedBox(height: 5),
@@ -87,20 +87,20 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 5),
                 Text("Diagnostic Message: ${_diagnosticMessage ?? "null"}"),
                 SizedBox(height: 5),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: _foundApi
                       ? () => setState(() {
-                            _lastError = ScormAPI.getLastError();
-                            _lastErrorString = ScormAPI.getErrorString(_lastError);
-                            _diagnosticMessage = ScormAPI.getDiagnosticMessage(_lastError);
+                            _lastError = ScormAPI.getLastError()!;
+                            _lastErrorString = ScormAPI.getErrorString(_lastError!)!;
+                            _diagnosticMessage = ScormAPI.getDiagnosticMessage(_lastError!)!;
                           })
                       : null,
                   child: Text('Get Last Error'),
                 ),
                 SizedBox(height: 10),
-                RaisedButton(onPressed: _foundApi ? () => ScormAPI.commit() : null, child: Text('Commit')),
+                ElevatedButton(onPressed: _foundApi ? () => ScormAPI.commit() : null, child: Text('Commit')),
                 SizedBox(height: 10),
-                RaisedButton(onPressed: _foundApi ? () => ScormAPI.finish() : null, child: Text('Finish')),
+                ElevatedButton(onPressed: _foundApi ? () => ScormAPI.finish() : null, child: Text('Finish')),
                 SizedBox(height: 10),
                 Visibility(visible: ScormAPI.apiFound, child: Text(ScormAPI.version.toString())),
               ],
