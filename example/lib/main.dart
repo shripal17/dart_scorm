@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
                 SizedBox(height: 10),
                 ElevatedButton(onPressed: _foundApi ? () => ScormAPI.finish() : null, child: Text('Finish')),
                 SizedBox(height: 10),
-                Visibility(visible: ScormAPI.apiFound, child: Text(ScormAPI.version.toString())),
+                Visibility(visible: ScormAPI.apiFound, child: Text(ScormAPI.apiFound ? ScormAPI.version.toString() : '')),
               ],
             ),
           ),
