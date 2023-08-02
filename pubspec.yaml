@@ -1,12 +1,12 @@
 name: scorm
 description: A simple package which lets you conveniently consume SCORM 1.2/2004 APIs in your dart/flutter web app. Also handles finding of the SCORM 'API' object in the
   view hierarchy
-version: 0.1.0
-author: shripal17
+version: 1.0.0
+# author: shripal17
 homepage: https://github.com/shripal17/dart_scorm/
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   js: ^0.6.2

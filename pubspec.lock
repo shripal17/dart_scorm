@@ -5,8 +5,17 @@ packages:
     dependency: "direct main"
     description:
       name: js
-      url: "https://pub.dartlang.org"
+      sha256: f2c445dce49627136094980615a031419f7f3eb393237e4ecd97ac15dea343f3
+      url: "https://pub.dev"
     source: hosted
-    version: "0.6.2"
+    version: "0.6.7"
+  meta:
+    dependency: transitive
+    description:
+      name: meta
+      sha256: "3c74dbf8763d36539f114c799d8a2d87343b5067e9d796ca22b5eb8437090ee3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.9.1"
 sdks:
-  dart: ">=2.7.0 <3.0.0"
+  dart: ">=3.0.0 <4.0.0"

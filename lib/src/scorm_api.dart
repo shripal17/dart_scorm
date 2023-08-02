@@ -21,10 +21,10 @@ class ScormAPI {
 
   static bool _apiFound = false;
 
-  static ScormVersion _version = null;
+  static late ScormVersion _version;
 
   /// The found/specified SCORM version
-  static ScormVersion get version => _version;
+  static ScormVersion? get version => _version;
 
   /// Traverses through hierarchy to find "API" or " and if found, sets the found API to current context so that it can be directly accessed
   static bool _search(JsObject window) {
@@ -76,7 +76,7 @@ class ScormAPI {
   /// If a [version] is specified, then will search only for that specific version, else will try to find both versions (preference is given to v2004)
   ///
   /// Returns whether the SCORM API has been found. The API status can also be accessed at any point of time with [apiFound]
-  static bool findApi({ScormVersion version, int maxTries = 7}) {
+  static bool findApi({ScormVersion? version, int maxTries = 7}) {
     if (version == null) {
       _version = ScormVersion.v2004;
       if (_findVersion(maxTries: maxTries)) {
@@ -101,20 +101,20 @@ class ScormAPI {
   static bool terminate({String message = ""}) => _apiFound ? _version.terminate(message) : false;
 
   /// Executes `GetValue`
-  static String getValue(String key) => _apiFound ? _version.getValue(key) : null;
+  static String? getValue(String key) => _apiFound ? _version.getValue(key) : null;
 
   /// Executes `SetValue`
-  static String setValue(String key, String value) => _apiFound ? _version.setValue(key, value) : null;
+  static String? setValue(String key, String value) => _apiFound ? _version.setValue(key, value) : null;
 
   /// Executes `Commit`
   static bool commit({String message = ""}) => _apiFound ? _version.commit(message) : false;
 
   /// Executes `GetLastError`
-  static String getLastError() => _apiFound ? _version.getLastError() : null;
+  static String? getLastError() => _apiFound ? _version.getLastError() : null;
 
   /// Executes `GetErrorString`
-  static String getErrorString(String errorCode) => _apiFound ? _version.getErrorString(errorCode) : null;
+  static String? getErrorString(String errorCode) => _apiFound ? _version.getErrorString(errorCode) : null;
 
   /// Executes `GetDiagnostic`
-  static String getDiagnosticMessage(String errorCode) => _apiFound ? _version.getDiagnosticMessage(errorCode) : null;
+  static String? getDiagnosticMessage(String errorCode) => _apiFound ? _version.getDiagnosticMessage(errorCode) : null;
 }
